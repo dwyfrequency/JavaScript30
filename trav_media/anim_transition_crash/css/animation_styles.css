@@ -1,0 +1,44 @@
+* {
+  margin: 0; 
+  padding: 0;
+  box-sizing: border-box;
+  background: #333;
+}
+
+.box {
+  background: #FFF;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  animation-name: myanimation;
+  /* how long it takes to cycle through the keyframes */
+  animation-duration: 4s;
+  /* this makes it go through the loop twice, if we set it to infinite it will continue in perpetuity */
+  animation-iteration-count: 1;
+  /* if we want it to not reset at the end, here if we want it to stay as a circle  */
+  animation-fill-mode: forwards;
+  /* will delay the animation by the specified time */
+  /* animation-delay: 2s; */
+  /* animation-direction will specify the paths, like we can put it in reverse or have it alternate*/
+  animation-direction: alternate;
+  /* we can change the way if moves, linear: same speed all the time, ease-in: start slow and end fast*/
+  animation-timing-function: ease-in;
+}
+
+/* will move around the permiter of a box, changing shape ultimately to a circle */
+@keyframes myanimation {
+  0% {background-color: #fff; left: 0px; top: 0px; border-radius: 0 0 0 0;}
+  25% {background-color: red; left: 300px; top: 0px; border-radius: 50% 0 0 0;}
+  50% {background-color: green; left: 300px; top: 300px; border-radius: 50% 50% 0 0;}
+  75% {background-color: blue; left: 0px; top: 300px; border-radius: 50% 50% 50% 0;}
+  100% {background-color: #fff; left: 0px; top: 0px; border-radius: 50% 50% 50% 50%;}
+}
+
+/* this will change the square into a circle in the same place as the start */
+/* @keyframes myanimation {
+  0% {background-color: #fff; border-radius: 0 0 0 0;}
+  25% {background-color: red; border-radius: 50% 0 0 0;}
+  50% {background-color: green; border-radius: 50% 50% 0 0;}
+  75% {background-color: blue; border-radius: 50% 50% 50% 0;}
+  100% {background-color: #fff; border-radius: 50% 50% 50% 50%;}
+} */
