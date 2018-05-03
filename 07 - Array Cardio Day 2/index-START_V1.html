@@ -31,6 +31,8 @@
       return (dt.getFullYear() - i.year) >= 19;
     }))
 
+    console.log(people.some(i => ((new Date().getFullYear()) - i.year) >= 19));
+
     // Array.prototype.every() // is everyone 19 or older?
     console.log(people.every(i => {
         let dt = new Date();
@@ -46,7 +48,19 @@
     // Find the comment with this ID
     // delete the comment with the ID of 823423
     // array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
-    console.log(comments.splice(comments.findIndex(i => i.id === 823423)), 1);
+    // finds the index of the occurance and deletes 1 of them 
+    // comms will have the comment we cut out 
+    // let comms = comments.splice(comments.findIndex(i => i.id === 823423), 1);
+    // console.log(comments);
+
+    let indexComment = comments.findIndex(i => i.id === 823423);
+    // spread operator to fill the array
+    const newComments = [
+      ...comments.slice(0, indexComment),
+      ...comments.slice(indexComment+1)
+    ];
+    console.log(newComments);
+
   </script>
 </body>
 </html>

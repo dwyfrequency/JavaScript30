@@ -22,6 +22,7 @@
     }
 
     .panels {
+      display: flex;
       min-height:100vh;
       overflow: hidden;
     }
@@ -41,6 +42,12 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      display: flex;
+      /* means each panel will take up enough space to fill the row, even distribution */
+      flex: 1;
+      flex-direction: column;
+      /* justify-content: space-around; */
+      /* align-items:  */
     }
 
 
@@ -51,10 +58,21 @@
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
     .panel > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* border: 2px solid red; for debug */
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      flex: 1 0 auto;
     }
+
+    /* moves the text off the screen */
+    .panel >*:first-child {transform: translateY(-100%);}
+    .panel >*:last-child {transform: translateY(100%);}
+    .panel.open-active >*:first-child {transform: translateY(0%);}
+    .panel.open-active >*:last-child {transform: translateY(0%);}
 
     .panel p {
       text-transform: uppercase;
@@ -67,6 +85,8 @@
     }
 
     .panel.open {
+      /* when the panel has the open class, it will be 5x as big */
+      flex: 5;
       font-size:40px;
     }
 
@@ -102,7 +122,21 @@
   </div>
 
   <script>
+    const panels = document.querySelectorAll('.panel');
+    console.log(panels);
 
+    function toggleOpen() {
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e) {
+      console.log(e.propertyName);
+      if(!e.propertyName.includes('flex')) return;
+      this.classList.toggle('open-active'); 
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
   </script>
 
 
