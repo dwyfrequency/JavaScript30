@@ -99,28 +99,50 @@
   </div>
 
 <script>
-  let lastClick;
+
+  let lastChecked;
   function shiftClick(e) {
-    let inBetween = false;
-    // if the input is checked and the shift key is down proceed
-    if(this.checked && e.shiftKey) {
-      console.log('clicked and sifted ');
+    let inBetween = false; 
+    
+    // check if shiftKey is down and checked that they are checking the box 
+    if(e.shiftKey && this.checked) {
+      
+      // loop over every checkbox and check if it is either the checkbox clicked or the lastChecked box
       checkboxes.forEach(checkbox => {
-        if(this === checkbox || checkbox === lastClick) {
+        if(checkbox === this || lastChecked === checkbox) {
           inBetween = !inBetween;
+          console.log('starting to check them in between...')
         }
+
+        // if the checkbox is inbetween the box just checked and the lastclicked then check the box
         if(inBetween) {
           checkbox.checked = true;
         }
       });
+    // else if is adding logic for unchecking the boxes with shift click    
+    } else if (e.shiftKey && !this.checked) {
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || lastChecked === checkbox) {
+          inBetween = !inBetween;
+          console.log('starting to check them in between...')
+        }
+
+        // if the checkbox is inbetween the box just checked and the lastclicked then check the box
+        if (inBetween) {
+          checkbox.checked = false;
+        }
+      });
     }
 
-    lastClick = this;
-    console.log(lastClick)
+    lastChecked = this;
   }
 
-  const checkboxes = document.querySelectorAll('.item input[type="checkbox"]');
-  checkboxes.forEach(checkbox => checkbox.addEventListener('click', shiftClick))
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  console.log(checkboxes);
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', shiftClick);
+  });
+
 </script>
 </body>
 </html>
