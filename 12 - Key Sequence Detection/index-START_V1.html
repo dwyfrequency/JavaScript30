@@ -12,15 +12,18 @@
   window.addEventListener('keyup', (e) => {
     console.log(e.key);
     pressed.push(e.key);
-    // just like with python when we use negatives, it is indexed with the last being -1. Why do we need to minus one though?!?!?
-    console.log(-secretCode.length - 1, pressed.length - secretCode.length);
-    pressed.splice(-secretCode.length - 1,  pressed.length - secretCode.length);
-    console.log(pressed);
+    // just like with python when we use negatives, it is indexed with the last being -1. it starts to push out the first one item in the array, if length is over the budget of secretCode.length letters
+    //pressed.splice(-7, 1) => splices off the first letter of the array 
+    let tmp = pressed.splice(-secretCode.length - 1,  pressed.length - secretCode.length);
+    console.log(tmp, pressed);
+   
     if(pressed.join('').includes(secretCode)) {
       console.log('true af');
       cornify_add();
     }
-  });
+  }
+);
+
 </script>
 </body>
 </html>
