@@ -55,15 +55,18 @@
     }
 
     .plates input {
+      /* hides the default input box */
       display: none;
     }
 
     .plates input + label:before {
+      /* adds ours own input box */
       content: '⬜️';
       margin-right: 10px;
     }
 
     .plates input:checked + label:before {
+      /* once box is checked, we display taco */
       content: '🌮';
     }
 
