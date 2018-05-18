@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Without Articles</title>
+</head>
+<body>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #bands {
+      list-style: inside square;
+      font-size: 20px;
+      background: white;
+      width: 500px;
+      margin: auto;
+      padding: 0;
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    #bands li {
+      border-bottom: 1px solid #efefef;
+      padding: 20px;
+    }
+    #bands li:last-child {
+      border-bottom: 0;
+    }
+
+    a {
+      color: #ffc600;
+      text-decoration: none;
+    }
+
+  </style>
+
+  <ul id="bands"></ul>
+
+<script>
+  /*goal to sort the array without 'The', 'An', 'A', take this sorted list and display the list within the webpage. Even through we are sorting past 'The', 'An', 'A', etc. they should be in the resulting list */ 
+const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+// const regex = new RegExp(/^(?:The|A)n?\s(.*)/);
+// bands.forEach(band => console.log(band.match(regex) ? band.match(regex)[1] : band));
+
+function removeArticles(str) {
+  /*If the string begins with an article, else return the string*/
+
+  // begins with, non-capturing group for The or A, match 0 or 1 character n, has preceding space. Capture group of anything after 
+  const regex = new RegExp(/^(?:The|A)n?\s(.*)/);
+  return str.match(regex) ? str.match(regex)[1] : str;
+}
+
+function populateList(list = []) {
+  bandSelector.innerHTML = list.map(li => `<li>${li}</li>`).join('');
+}
+
+bands.sort((a, b) => {
+  return removeArticles(a) <= removeArticles(b) ? -1 : 1;
+});
+
+console.log(bands);
+const bandSelector = document.querySelector('#bands');
+console.log(bandSelector);
+populateList(bands);
+
+</script>
+
+</body>
+</html>

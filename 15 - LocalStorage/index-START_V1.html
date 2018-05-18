@@ -23,6 +23,10 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <form class="add-items select-all-items">
+      <input type="submit" value="+ Select All Item">
+      <input type="submit" value="+ Unselect All Item">
+    </form>
   </div>
 
 <script>
@@ -30,6 +34,9 @@
   const itemsList = document.querySelector('.plates');
   // on page load, we check if there is anything in local storage, if not - fall back to an empty array
   const items = JSON.parse(localStorage.getItem('items')) || [];
+  const selectAll = document.querySelector(`input[value="+ Select All Item"]`);
+  const unselectAll = document.querySelector(`input[value="+ Unselect All Item"]`);
+  console.log(selectAll, unselectAll);
 
   function addItem(e) {
     // prevents page from reloading when the form is submitted
@@ -73,12 +80,35 @@
     items[index].done = !items[index].done;
     localStorage.setItem('items', JSON.stringify(items));
     populateList(items, itemsList);
-  } 
+  }
+
+  function selectAllItems(e) {
+    e.preventDefault();
+    items.forEach(item => {
+      item.done = true;
+    });
+    populateList(items, itemsList);
+    // localStorage can only take strings so we need to stringify our array before passing. So when we add an item, we add it to localStorage so it will persist
+    localStorage.setItem('items', JSON.stringify(items));
+  }
+  function deSelectAllItems(e) {
+    e.preventDefault();
+    console.log(`hi`);
+    items.forEach(item => {
+      item.done = false;
+    });
+    populateList(items, itemsList);
+    // localStorage can only take strings so we need to stringify our array before passing. So when we add an item, we add it to localStorage so it will persist
+    localStorage.setItem('items', JSON.stringify(items));
+  }
 
   // we listen for when they submit the form
   addItems.addEventListener('submit', addItem);
   // using event delegation where we're looking for a click on something higher
   itemsList.addEventListener('click', toggleDone);
+  selectAll.addEventListener('click', selectAllItems);
+  unselectAll.addEventListener('click', deSelectAllItems);
+
   populateList(items, itemsList);
 
 </script>
