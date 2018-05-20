@@ -182,31 +182,24 @@
     </li>
   </ul>
 <script>
+  const lis = document.querySelectorAll('[data-time');
+  const liArr = [...lis];
+  let remainingSecs = liArr
+                    .map(li => li.dataset.time)
+                    .map(time => {
+                      const [mins, secs] = time.split(':').map(parseFloat);
+                      return (mins * 60) + secs;
+                    })
+                    .reduce((accum, sec) => accum + sec);
+                         
 
+  const hours = Math.floor(remainingSecs / 3600);
+  remainingSecs = remainingSecs % 3600;
+  const mins = Math.floor(remainingSecs / 60);
+  const secs = remainingSecs % 60;
 
-  const timeArr = []
-  const lis = document.querySelectorAll('li[data-time]');
-  
-  lis.forEach(li => {
-    timeArr.push(li.dataset.time);
-  });
-
-  const timeInSecs = timeArr.reduce((accum, time) => accum + convertTimeToSecs(time), 0);
-  console.log(timeInSecs);
-
-  function convertTimeToSecs(str) {
-    const splitTime = str.split(":");
-    return Number(splitTime[0]) * 60 + Number(splitTime[1]);
-  }
-
-  function secsToTimeFormat(secs) {
-    // we take in the total seconds and splice out the last two digits, the remaining digits. We see how many times it can be divided by 60 giving us the mins 
-    const time = `Format mm:ss ${Math.floor(secs/60)}:${secs % 60 > 9 ? secs % 60 : '0' + secs % 60}`;
-    console.log(time);
-  }
-
-  console.log(convertTimeToSecs("2:01"));
-  console.log(secsToTimeFormat(timeInSecs));
+  const totalTime = `${hours}:${mins}:${secs}`;
+  console.log(totalTime);
 
 </script>
 </body>
