@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #FFF;
+}
+
+body {
+  background: #333;
+}
+
+nav {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid red;
+}
+
+.dropdown:hover .projects {
+  display: flex;
+  flex-direction: column;
+  background: goldenrod;
+}
+
+.projects {
+  display: none;
+}
